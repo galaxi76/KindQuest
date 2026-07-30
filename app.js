@@ -66,7 +66,7 @@ function beginRound() {
     intro =
       `${a.name} trots straight over — she remembers her friend! ` +
       `Her trust in you carries on. Ask first, then choose kindly.`;
-  } else if (mem.visits > 1) {
+  } else if (memIsReturningVisit(a.id)) {
     intro =
       `${a.name} perks up — she remembers you visiting before! ` +
       `Earn her trust by reading how she feels each time — ask first, then choose kindly.`;

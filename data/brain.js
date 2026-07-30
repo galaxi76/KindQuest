@@ -20,6 +20,8 @@ function newRound(animal) {
     progress: 0,
     desire: pickDesire(),
     consentChecked: false,
+    asked: false,      // has the child asked her anything yet this round?
+    hasTouched: false,  // has a touch already happened this round?
     finished: false,
   };
 }
@@ -77,7 +79,20 @@ function resolveChoice(action, round, animal) {
 
   // Pet or brush — welcome when she wants affection, too much when she wants space.
   const verb = action === "brush" ? "brush" : "pet";
+
+  // ALWAYS ask before the first touch. Reaching for an animal you haven't
+  // greeted is the exact habit this app exists to unteach — so the very first
+  // touch of a round never counts until the child has asked her something.
+  if (!round.asked && !round.hasTouched) {
+    return {
+      pose: "hesitant",
+      outcome: "gentle",
+      line: `Wait — you haven't said hello yet! ${name} doesn't know what you want. Tap "Ask" to check with her first. 💬`,
+    };
+  }
+
   if (wantsAffection) {
+    round.hasTouched = true;
     return advance(round, {
       pose: action === "brush" ? "content" : "happy",
       line:
@@ -114,6 +129,7 @@ function playQuestions() {
 function resolvePlayQuestion(kind, round, animal) {
   const name = animal.name;
   const wantsAffection = round.desire === "affection";
+  round.asked = true; // any question counts as checking in with her first
   switch (kind) {
     case "permission":
       round.consentChecked = true;

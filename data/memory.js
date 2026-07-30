@@ -12,6 +12,22 @@
 
 const MEM_KEY = "sf-friendship";
 
+// Snapshot of what the animals knew about this child BEFORE this session began.
+// "She remembers you" must mean a genuinely earlier visit — not simply picking
+// her twice in the same sitting, which would have her greeting you as an old
+// friend seconds after you met.
+const MEM_AT_SESSION_START = (() => {
+  try {
+    return JSON.parse(localStorage.getItem(MEM_KEY)) || {};
+  } catch {
+    return {};
+  }
+})();
+
+function memIsReturningVisit(animalId) {
+  return (MEM_AT_SESSION_START[animalId]?.visits || 0) > 0;
+}
+
 function memLoad() {
   try {
     return JSON.parse(localStorage.getItem(MEM_KEY)) || {};

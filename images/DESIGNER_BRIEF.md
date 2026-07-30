@@ -1,4 +1,4 @@
-# Artwork brief — Sanctuary Friends
+# Artwork brief — KindQuest
 
 Hand this to your designer. Each playable animal needs **5 images**, one per
 emotional state. The game swaps between them to show the child how the animal

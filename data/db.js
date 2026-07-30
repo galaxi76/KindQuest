@@ -4,7 +4,7 @@
 // If data/supabase-config.js has a url + anonKey, this fetches animals from the
 // database and replaces the built-in ANIMALS with them. If the config is empty
 // OR the network fails, the app silently keeps the built-in animals from
-// data/animals.js — so Sanctuary Friends ALWAYS works, even fully offline.
+// data/animals.js — so KindQuest ALWAYS works, even fully offline.
 //
 // We call Supabase's REST endpoint directly (no extra library / no build step),
 // which keeps the app a plain static site.

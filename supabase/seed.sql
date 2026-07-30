@@ -1,5 +1,5 @@
 -- ──────────────────────────────────────────────────────────────────────────
--- Sanctuary Friends — seed data.
+-- KindQuest — seed data.
 --
 -- Run this AFTER schema.sql, in the Supabase SQL Editor. It mirrors the
 -- built-in data/animals.js so the database and the offline fallback match.

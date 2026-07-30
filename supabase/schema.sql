@@ -1,5 +1,5 @@
 -- ──────────────────────────────────────────────────────────────────────────
--- Sanctuary Friends — animal content schema (the "CMS").
+-- KindQuest — animal content schema (the "CMS").
 --
 -- Run this ONCE in your Supabase project: SQL Editor → New query → paste → Run.
 -- Then run seed.sql to load Clover and the placeholder animals.

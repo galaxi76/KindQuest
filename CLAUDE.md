@@ -1,4 +1,4 @@
-# Sanctuary Friends
+# KindQuest
 
 A kids' web app (ages ~4–8) that teaches **consent, empathy, and respect for
 animals** through interaction with rescued farm-sanctuary animals. The child

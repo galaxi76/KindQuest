@@ -1,0 +1,11 @@
+# Full-size source artwork (~15MB). The web-optimised .jpg files next to them
+# are what the app actually loads; keep these locally as your archive.
+images/*/originals/
+
+# macOS clutter
+.DS_Store
+
+# Editor / tooling
+.vscode/
+.idea/
+*.swp

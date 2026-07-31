@@ -21,10 +21,20 @@
 // This is the ONLY place that decides "SVG vs real art", so swapping a
 // designer's images in is just a matter of filling the `images` map in
 // data/animals.js — no other code changes.
+// Photos need cache-busting too, or browsers keep showing an old picture after
+// the artwork is replaced. Reuse this script tag's own ?v= value so images
+// always version in step with the code — nothing extra to remember to bump.
+const ASSET_V = (() => {
+  const src = document.currentScript?.src || "";
+  const m = src.match(/[?&]v=([^&]+)/);
+  return m ? m[1] : "";
+})();
+
 function renderPose(animal, pose) {
   const src = animal && animal.images && animal.images[pose];
   if (src) {
-    return `<img class="animal-photo" src="${src}" alt="${animal.name} the ${animal.species}" />`;
+    const url = ASSET_V ? `${src}${src.includes("?") ? "&" : "?"}v=${ASSET_V}` : src;
+    return `<img class="animal-photo" src="${url}" alt="${animal.name} the ${animal.species}" />`;
   }
   return goatArt(pose); // built-in placeholder art
 }

@@ -250,24 +250,51 @@ function showSanctuary(s, gotLocation, note) {
   const distance = s.km != null
     ? `${Math.round(s.km).toLocaleString()} km away`
     : s.country;
-  // OpenStreetMap embed: a real map, no API key, no tracking scripts.
-  const d = 0.06; // bounding box ≈ neighbourhood zoom
-  const bbox = [s.lng - d, s.lat - d / 2, s.lng + d, s.lat + d / 2].join("%2C");
-  const map = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${s.lat}%2C${s.lng}`;
+  const directions = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`;
 
   $("#sanctuary-result").innerHTML = `
     ${note ? `<p class="sanctuary-status">${note}</p>` : ""}
     <div class="sanctuary-card">
       <h4>${s.name}</h4>
       <p class="sanctuary-meta">${s.country} · ${distance}</p>
+      ${s.notes ? `<p class="sanctuary-meta">${s.notes}</p>` : ""}
       <a href="${s.site}" target="_blank" rel="noopener noreferrer">Visit their website ↗</a>
+      &nbsp;·&nbsp;
+      <a href="${directions}" target="_blank" rel="noopener noreferrer">Directions ↗</a>
     </div>
-    <iframe class="sanctuary-map" src="${map}" loading="lazy"
-            title="Map showing ${s.name}"></iframe>
+    <div id="sanctuary-map" class="sanctuary-map"></div>
     <p class="sanctuary-note">
       Sample listing — always check opening times and visiting rules with the
       sanctuary before you travel. Many welcome children by appointment only.
     </p>`;
+
+  drawSanctuaryMap(s);
+}
+
+// Interactive Leaflet map (free pan + zoom in AND out). Falls back to a static
+// OpenStreetMap embed if Leaflet couldn't load — the panel still works offline.
+let sanctuaryMap = null;
+function drawSanctuaryMap(s) {
+  const host = $("#sanctuary-map");
+  if (typeof L === "undefined") {
+    const d = 0.06;
+    const bbox = [s.lng - d, s.lat - d / 2, s.lng + d, s.lat + d / 2].join("%2C");
+    host.outerHTML =
+      `<iframe class="sanctuary-map" loading="lazy" title="Map showing ${s.name}"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${s.lat}%2C${s.lng}"></iframe>`;
+    return;
+  }
+
+  if (sanctuaryMap) sanctuaryMap.remove(); // tear down any previous map
+  sanctuaryMap = L.map(host, { scrollWheelZoom: false }).setView([s.lat, s.lng], 13);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    minZoom: 2, // zooming all the way out to the whole world is allowed
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(sanctuaryMap);
+  L.marker([s.lat, s.lng]).addTo(sanctuaryMap).bindPopup(s.name).openPopup();
+  // The panel animates open; nudge Leaflet to re-measure once it's settled.
+  setTimeout(() => sanctuaryMap.invalidateSize(), 250);
 }
 
 // ── event wiring ──────────────────────────────────────────────────────────────

@@ -59,7 +59,7 @@ async function loadSanctuariesFromDB() {
   if (!cfg || !cfg.url || !cfg.anonKey) return { source: "built-in" };
 
   try {
-    const url = `${cfg.url.replace(/\/$/, "")}/rest/v1/sanctuaries?select=name,country,lat,lng,site,notes&order=name`;
+    const url = `${cfg.url.replace(/\/$/, "")}/rest/v1/sanctuaries?select=name,country,lat,lng,site,notes,verified&order=name`;
     const headers = { apikey: cfg.anonKey };
     if (cfg.anonKey.startsWith("ey")) headers.Authorization = `Bearer ${cfg.anonKey}`;
     const res = await fetch(url, { headers });

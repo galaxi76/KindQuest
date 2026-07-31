@@ -247,17 +247,32 @@ function findSanctuary() {
 }
 
 function showSanctuary(s, gotLocation, note) {
-  const distance = s.km != null
-    ? `${Math.round(s.km).toLocaleString()} km away`
-    : s.country;
+  const km = s.km != null ? Math.round(s.km) : null;
+  const distance = km != null ? `${km.toLocaleString()} km away` : s.country;
   const directions = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`;
+
+  // Be honest when the nearest one is far. A tester in a country we don't cover
+  // yet should see "we're still building this", not a 9,000 km "day out".
+  let reach = "";
+  if (km != null && km > 500) {
+    reach = `<p class="sanctuary-status">
+      The closest sanctuary we know of is <strong>${km.toLocaleString()} km</strong> away —
+      our map is still growing and may not cover your area yet.
+      Know a farm sanctuary near you? We'd love to add it. 💛</p>`;
+  } else if (km != null && km <= 150) {
+    reach = `<p class="sanctuary-status">Close enough for a day out. 🌿</p>`;
+  }
 
   $("#sanctuary-result").innerHTML = `
     ${note ? `<p class="sanctuary-status">${note}</p>` : ""}
+    ${reach}
     <div class="sanctuary-card">
       <h4>${s.name}</h4>
       <p class="sanctuary-meta">${s.country} · ${distance}</p>
       ${s.notes ? `<p class="sanctuary-meta">${s.notes}</p>` : ""}
+      ${s.verified ? "" : `<p class="sanctuary-unverified">
+        ⓘ We haven't confirmed this listing yet — please check their website
+        before travelling.</p>`}
       <a href="${s.site}" target="_blank" rel="noopener noreferrer">Visit their website ↗</a>
       &nbsp;·&nbsp;
       <a href="${directions}" target="_blank" rel="noopener noreferrer">Directions ↗</a>

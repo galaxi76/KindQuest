@@ -7,7 +7,7 @@
        for anyone you share it with. Remove when you're ready to be found. -->
   <meta name="robots" content="noindex, nofollow" />
   <title>KindQuest 🌿</title>
-  <link rel="stylesheet" href="styles.css?v=29" />
+  <link rel="stylesheet" href="styles.css?v=30" />
 </head>
 <body>
   <div id="app">
@@ -17,7 +17,15 @@
 
     <!-- Parents' Corner — grown-up content, incl. visiting a real sanctuary -->
     <button id="parents-btn" class="parents-btn" aria-label="Open Parents' Corner">
-      <span aria-hidden="true">☰</span><span class="parents-btn-text">For Parents</span>
+      <!-- Deliberately plain line-art, in muted grey: this is a grown-up door,
+           and it shouldn't look like a toy a child wants to tap. -->
+      <svg class="parents-icon" viewBox="0 0 24 24" width="17" height="17"
+           fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 5.5h6a2.5 2.5 0 0 1 2 2.5 2.5 2.5 0 0 1 2-2.5h6"/>
+        <path d="M4 5.5V18h6a2 2 0 0 1 2 2 2 2 0 0 1 2-2h6V5.5"/>
+        <path d="M12 8v12"/>
+      </svg><span class="parents-btn-text">For Parents</span>
     </button>
 
     <div id="parents-backdrop" class="parents-backdrop hidden"></div>
@@ -143,15 +151,15 @@
 
   </div>
 
-  <script src="data/animals.js?v=29"></script>
-  <script src="data/sanctuaries.js?v=29"></script>
-  <script src="data/supabase-config.js?v=29"></script>
-  <script src="data/art.js?v=29"></script>
-  <script src="data/tts.js?v=29"></script>
-  <script src="data/fx.js?v=29"></script>
-  <script src="data/memory.js?v=29"></script>
-  <script src="data/db.js?v=29"></script>
-  <script src="data/brain.js?v=29"></script>
-  <script src="app.js?v=29"></script>
+  <script src="data/animals.js?v=30"></script>
+  <script src="data/sanctuaries.js?v=30"></script>
+  <script src="data/supabase-config.js?v=30"></script>
+  <script src="data/art.js?v=30"></script>
+  <script src="data/tts.js?v=30"></script>
+  <script src="data/fx.js?v=30"></script>
+  <script src="data/memory.js?v=30"></script>
+  <script src="data/db.js?v=30"></script>
+  <script src="data/brain.js?v=30"></script>
+  <script src="app.js?v=30"></script>
 </body>
 </html>

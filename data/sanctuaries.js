@@ -12,7 +12,7 @@
 const SANCTUARIES = [
   // ── Israel ──
   { name: "Freedom Farm Sanctuary", country: "Israel", lat: 32.3600, lng: 34.9200,
-    site: "https://freedomfarm.co.il" },
+    site: "https://www.freedom-farm.org.il/en/" },
 
   // ── United States ──
   { name: "Farm Sanctuary — Watkins Glen", country: "USA", lat: 42.3800, lng: -76.8700,

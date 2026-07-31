@@ -51,6 +51,33 @@ async function loadAnimalsFromDB() {
   }
 }
 
+// Same idea for the Parents' Corner sanctuary list: use the database if it's
+// configured and has rows, otherwise keep the built-in list in
+// data/sanctuaries.js. Never blocks or breaks the app.
+async function loadSanctuariesFromDB() {
+  const cfg = typeof SUPABASE_CONFIG !== "undefined" ? SUPABASE_CONFIG : null;
+  if (!cfg || !cfg.url || !cfg.anonKey) return { source: "built-in" };
+
+  try {
+    const url = `${cfg.url.replace(/\/$/, "")}/rest/v1/sanctuaries?select=name,country,lat,lng,site,notes&order=name`;
+    const headers = { apikey: cfg.anonKey };
+    if (cfg.anonKey.startsWith("ey")) headers.Authorization = `Bearer ${cfg.anonKey}`;
+    const res = await fetch(url, { headers });
+    if (!res.ok) throw new Error(`Supabase responded ${res.status}`);
+
+    const rows = await res.json();
+    if (!Array.isArray(rows) || rows.length === 0) throw new Error("no rows returned");
+
+    SANCTUARIES.length = 0;           // replace in place — same array reference
+    rows.forEach((r) => SANCTUARIES.push(r));
+    console.info(`[db] Loaded ${rows.length} sanctuaries from Supabase.`);
+    return { source: "supabase", count: rows.length };
+  } catch (err) {
+    console.warn("[db] Using built-in sanctuaries:", err.message);
+    return { source: "built-in", error: err.message };
+  }
+}
+
 // Map a database row (snake_case columns) to the profile shape the rest of the
 // app expects (camelCase keys used by app.js / brain.js / art.js).
 function rowToAnimal(r) {

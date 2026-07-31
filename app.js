@@ -276,6 +276,7 @@ async function init() {
   // or offline. Either way, ANIMALS is ready before we draw the board.
   await loadAnimalsFromDB();
   buildBoard();
+  loadSanctuariesFromDB(); // not awaited — the map isn't needed to start playing
 
   $$(".choice").forEach((btn) =>
     btn.addEventListener("click", () => onChoice(btn.dataset.action))

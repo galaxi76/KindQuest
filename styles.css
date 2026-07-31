@@ -216,6 +216,7 @@ body {
   display: flex; align-items: center; gap: 8px;
 }
 .parents-btn:active { transform: scale(0.95); }
+.parents-icon { display: block; opacity: 0.75; }
 @media (max-width: 480px) { .parents-btn-text { display: none; } }
 
 .parents-backdrop {

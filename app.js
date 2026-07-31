@@ -263,6 +263,11 @@ function showSanctuary(s, gotLocation, note) {
       <a href="${directions}" target="_blank" rel="noopener noreferrer">Directions ↗</a>
     </div>
     <div id="sanctuary-map" class="sanctuary-map"></div>
+    <p class="sanctuary-legend">
+      <span class="pin-dot pin-near"></span> nearest to you
+      &nbsp; <span class="pin-dot pin-other"></span> other sanctuaries
+      &nbsp;·&nbsp; <button id="show-all-sanctuaries" class="linkish">Show all</button>
+    </p>
     <p class="sanctuary-note">
       Sample listing — always check opening times and visiting rules with the
       sanctuary before you travel. Many welcome children by appointment only.
@@ -286,13 +291,39 @@ function drawSanctuaryMap(s) {
   }
 
   if (sanctuaryMap) sanctuaryMap.remove(); // tear down any previous map
-  sanctuaryMap = L.map(host, { scrollWheelZoom: false }).setView([s.lat, s.lng], 13);
+  sanctuaryMap = L.map(host, { scrollWheelZoom: false }).setView([s.lat, s.lng], 11);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     minZoom: 2, // zooming all the way out to the whole world is allowed
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(sanctuaryMap);
-  L.marker([s.lat, s.lng]).addTo(sanctuaryMap).bindPopup(s.name).openPopup();
+
+  // EVERY sanctuary gets a pin, so zooming out reveals the whole network.
+  // The nearest one is marked in green and opened; the rest are soft dots.
+  const pins = [];
+  SANCTUARIES.forEach((x) => {
+    const isNearest = x.name === s.name;
+    const popup =
+      `<strong>${x.name}</strong><br>${x.country}` +
+      (x.site ? `<br><a href="${x.site}" target="_blank" rel="noopener noreferrer">Website ↗</a>` : "");
+    const marker = isNearest
+      ? L.circleMarker([x.lat, x.lng], {
+          radius: 10, color: "#4e9a3f", fillColor: "#6bbf59", fillOpacity: 1, weight: 3,
+        })
+      : L.circleMarker([x.lat, x.lng], {
+          radius: 7, color: "#7c6f5f", fillColor: "#ffce5c", fillOpacity: 0.9, weight: 2,
+        });
+    marker.addTo(sanctuaryMap).bindPopup(popup);
+    if (isNearest) marker.openPopup();
+    pins.push([x.lat, x.lng]);
+  });
+
+  // "Show all" zooms out to fit every sanctuary in view.
+  $("#show-all-sanctuaries")?.addEventListener("click", () => {
+    sanctuaryMap.closePopup(); // otherwise the open bubble hides nearby pins
+    if (pins.length) sanctuaryMap.fitBounds(pins, { padding: [30, 30] });
+  });
+
   // The panel animates open; nudge Leaflet to re-measure once it's settled.
   setTimeout(() => sanctuaryMap.invalidateSize(), 250);
 }

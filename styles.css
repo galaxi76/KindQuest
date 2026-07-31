@@ -207,6 +207,60 @@ body {
 }
 .tts-btn:active { transform: scale(0.92); }
 
+/* ── Parents' Corner ──────────────────────────────────────────────── */
+.parents-btn {
+  position: fixed; top: 14px; left: 14px; z-index: 50;
+  border: none; border-radius: 999px; padding: 10px 16px;
+  background: #fff; box-shadow: var(--shadow); font: inherit; font-weight: 700;
+  font-size: 0.9rem; color: var(--ink-soft); cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+}
+.parents-btn:active { transform: scale(0.95); }
+@media (max-width: 480px) { .parents-btn-text { display: none; } }
+
+.parents-backdrop {
+  position: fixed; inset: 0; background: rgba(40, 50, 30, 0.45);
+  z-index: 90; animation: fade 0.25s ease;
+}
+.parents-panel {
+  position: fixed; top: 0; left: 0; bottom: 0; width: min(420px, 88vw);
+  background: #fdfefb; z-index: 91; overflow-y: auto; padding: 24px 22px 40px;
+  box-shadow: 6px 0 28px rgba(60, 80, 40, 0.28);
+  animation: slide-in 0.28s cubic-bezier(.3,1,.5,1);
+}
+@keyframes slide-in { from { transform: translateX(-100%); } to { transform: none; } }
+.parents-close {
+  position: absolute; top: 14px; right: 14px; border: none; background: #eef3ea;
+  border-radius: 50%; width: 36px; height: 36px; font-size: 1rem; cursor: pointer;
+  color: var(--ink-soft);
+}
+.parents-title { color: var(--accent-dark); margin: 4px 0 12px; font-size: 1.5rem; }
+.parents-lead { line-height: 1.5; color: var(--ink); margin: 0 0 20px; font-size: 0.98rem; }
+.parents-section { margin-bottom: 24px; }
+.parents-section h3 { color: var(--accent-dark); margin: 0 0 4px; font-size: 1.12rem; }
+.parents-sub { margin: 0 0 12px; color: var(--ink-soft); font-size: 0.92rem; }
+.parents-tips { margin: 0; padding-left: 20px; line-height: 1.65; font-size: 0.95rem; }
+.parents-tips li { margin-bottom: 6px; }
+.parents-privacy {
+  font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5;
+  background: #f1f6ee; border-radius: 14px; padding: 12px 14px; margin: 0;
+}
+
+.sanctuary-result { margin-top: 14px; }
+.sanctuary-card {
+  background: #fff; border-radius: 18px; box-shadow: var(--shadow);
+  padding: 14px 16px; margin-bottom: 12px;
+}
+.sanctuary-card h4 { margin: 0 0 4px; font-size: 1.05rem; color: var(--ink); }
+.sanctuary-meta { margin: 0 0 8px; color: var(--ink-soft); font-size: 0.9rem; }
+.sanctuary-card a { color: var(--accent-dark); font-weight: 700; }
+.sanctuary-map {
+  width: 100%; height: 240px; border: none; border-radius: 16px;
+  box-shadow: var(--shadow); background: #e8f0e4;
+}
+.sanctuary-note { font-size: 0.8rem; color: var(--ink-soft); margin: 8px 0 0; line-height: 1.45; }
+.sanctuary-status { color: var(--ink-soft); font-size: 0.92rem; margin: 10px 0 0; }
+
 /* ── Celebration FX (confetti layer) ─────────────────────────────── */
 #fx-layer {
   position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden;

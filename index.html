@@ -7,13 +7,54 @@
        for anyone you share it with. Remove when you're ready to be found. -->
   <meta name="robots" content="noindex, nofollow" />
   <title>KindQuest 🌿</title>
-  <link rel="stylesheet" href="styles.css?v=28" />
+  <link rel="stylesheet" href="styles.css?v=29" />
 </head>
 <body>
   <div id="app">
 
     <!-- Voice on/off — Clover reads her lines aloud for pre-readers -->
     <button id="tts-btn" class="tts-btn" aria-label="Turn voice off">🔊</button>
+
+    <!-- Parents' Corner — grown-up content, incl. visiting a real sanctuary -->
+    <button id="parents-btn" class="parents-btn" aria-label="Open Parents' Corner">
+      <span aria-hidden="true">☰</span><span class="parents-btn-text">For Parents</span>
+    </button>
+
+    <div id="parents-backdrop" class="parents-backdrop hidden"></div>
+    <aside id="parents-panel" class="parents-panel hidden" aria-label="Parents' Corner">
+      <button id="parents-close" class="parents-close" aria-label="Close">✕</button>
+      <h2 class="parents-title">Parents' Corner 🌿</h2>
+
+      <p class="parents-lead">
+        KindQuest teaches children to <strong>ask before they touch</strong> — and to
+        read when an animal says "not right now." The best next step is meeting a
+        real rescued animal and practising it for real.
+      </p>
+
+      <section class="parents-section">
+        <h3>Visit a real sanctuary</h3>
+        <p class="parents-sub">Find a farm sanctuary near you to visit together.</p>
+        <button id="find-sanctuary" class="big-btn adopt-btn">📍 Find one near me</button>
+        <div id="sanctuary-result" class="sanctuary-result"></div>
+      </section>
+
+      <section class="parents-section">
+        <h3>Before you go</h3>
+        <ul class="parents-tips">
+          <li>Let the animal come to <em>you</em> — never chase or corner them.</li>
+          <li>Ask a caretaker before touching or feeding anyone.</li>
+          <li>Watch the ears and the head: turning away means "give me space."</li>
+          <li>Quiet voices. Sudden noises are frightening to prey animals.</li>
+          <li>"No" from an animal is not rejection — it's communication. 💛</li>
+        </ul>
+      </section>
+
+      <p class="parents-privacy">
+        <strong>Privacy:</strong> KindQuest has no accounts and collects nothing.
+        Your child's friendships are saved only on this device. Location, if you
+        share it, is used once to find nearby sanctuaries and is never stored or sent.
+      </p>
+    </aside>
 
     <!-- ── Screen 1: Gameboard ─────────────────────────────────────────── -->
     <section id="board-screen" class="screen active">
@@ -102,14 +143,15 @@
 
   </div>
 
-  <script src="data/animals.js?v=28"></script>
-  <script src="data/supabase-config.js?v=28"></script>
-  <script src="data/art.js?v=28"></script>
-  <script src="data/tts.js?v=28"></script>
-  <script src="data/fx.js?v=28"></script>
-  <script src="data/memory.js?v=28"></script>
-  <script src="data/db.js?v=28"></script>
-  <script src="data/brain.js?v=28"></script>
-  <script src="app.js?v=28"></script>
+  <script src="data/animals.js?v=29"></script>
+  <script src="data/sanctuaries.js?v=29"></script>
+  <script src="data/supabase-config.js?v=29"></script>
+  <script src="data/art.js?v=29"></script>
+  <script src="data/tts.js?v=29"></script>
+  <script src="data/fx.js?v=29"></script>
+  <script src="data/memory.js?v=29"></script>
+  <script src="data/db.js?v=29"></script>
+  <script src="data/brain.js?v=29"></script>
+  <script src="app.js?v=29"></script>
 </body>
 </html>

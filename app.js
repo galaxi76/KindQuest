@@ -220,6 +220,56 @@ function buildSuggestions() {
   });
 }
 
+// ── Parents' Corner ───────────────────────────────────────────────────────────
+function openParents(open) {
+  ttsStop();
+  $("#parents-panel").classList.toggle("hidden", !open);
+  $("#parents-backdrop").classList.toggle("hidden", !open);
+}
+
+// Ask the browser for the family's location (once, never stored), then show the
+// closest sanctuary on a map. Falls back gracefully if they decline or it fails.
+function findSanctuary() {
+  const out = $("#sanctuary-result");
+  if (!navigator.geolocation) {
+    return showSanctuary(SANCTUARIES[0], null, "Your browser can't share location.");
+  }
+  out.innerHTML = `<p class="sanctuary-status">Looking for sanctuaries near you…</p>`;
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const { latitude, longitude } = pos.coords;
+      showSanctuary(nearestSanctuary(latitude, longitude), latitude);
+    },
+    () => showSanctuary(SANCTUARIES[0], null,
+      "No location shared — here's one to explore anyway."),
+    { timeout: 8000, maximumAge: 600000 }
+  );
+}
+
+function showSanctuary(s, gotLocation, note) {
+  const distance = s.km != null
+    ? `${Math.round(s.km).toLocaleString()} km away`
+    : s.country;
+  // OpenStreetMap embed: a real map, no API key, no tracking scripts.
+  const d = 0.06; // bounding box ≈ neighbourhood zoom
+  const bbox = [s.lng - d, s.lat - d / 2, s.lng + d, s.lat + d / 2].join("%2C");
+  const map = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${s.lat}%2C${s.lng}`;
+
+  $("#sanctuary-result").innerHTML = `
+    ${note ? `<p class="sanctuary-status">${note}</p>` : ""}
+    <div class="sanctuary-card">
+      <h4>${s.name}</h4>
+      <p class="sanctuary-meta">${s.country} · ${distance}</p>
+      <a href="${s.site}" target="_blank" rel="noopener noreferrer">Visit their website ↗</a>
+    </div>
+    <iframe class="sanctuary-map" src="${map}" loading="lazy"
+            title="Map showing ${s.name}"></iframe>
+    <p class="sanctuary-note">
+      Sample listing — always check opening times and visiting rules with the
+      sanctuary before you travel. Many welcome children by appointment only.
+    </p>`;
+}
+
 // ── event wiring ──────────────────────────────────────────────────────────────
 async function init() {
   // Try the Supabase CMS first; falls back to built-in animals if unconfigured
@@ -249,6 +299,11 @@ async function init() {
   };
   ttsBtn.addEventListener("click", () => { ttsToggle(); drawTtsBtn(); });
   drawTtsBtn();
+
+  $("#parents-btn").addEventListener("click", () => openParents(true));
+  $("#parents-close").addEventListener("click", () => openParents(false));
+  $("#parents-backdrop").addEventListener("click", () => openParents(false));
+  $("#find-sanctuary").addEventListener("click", findSanctuary);
 
   $("#ask-send").addEventListener("click", () => ask());
   $("#ask-input").addEventListener("keydown", (e) => {

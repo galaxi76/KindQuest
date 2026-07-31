@@ -74,6 +74,11 @@ insert into public.sanctuaries (name, country, lat, lng, site, notes) values
   ('Farm Sanctuary SA',             'South Africa',-33.9100,  19.1200, 'https://farmsanctuarysa.org', 'Franschhoek — home of Pigcasso'),
   -- Asia
   ('Animal Aid Unlimited',          'India',        24.5800,  73.6800, 'https://animalaidunlimited.org', 'Udaipur, Rajasthan'),
+  ('Open Sesame',                   'Japan',        32.8000, 130.7000, 'https://www.open-sesame.info', 'Kumamoto — horses, a pig and chickens'),
+  ('Moo Mow Garden',                'Japan',        37.4200, 140.9900, 'https://isitveganjapan.com/animal-sanctuaries/', 'Fukushima — rescued cows'),
+  ('Elephant Nature Park',          'Thailand',     19.1900,  98.8600, 'https://elephantnaturepark.org', 'Chiang Mai — elephants, buffalo and dogs'),
+  ('Wildlife Friends Foundation Thailand','Thailand',12.6500, 99.8500, 'https://www.wfft.org', 'Petchaburi — wildlife and elephant refuge'),
+  ('Boon Lott''s Elephant Sanctuary','Thailand',     17.1000,  99.6000, 'https://www.blesele.org', 'Sukhothai — elephants'),
   -- Oceania
   ('Edgar''s Mission',              'Australia',   -37.2800, 144.7300, 'https://www.edgarsmission.org.au', 'Lancefield, Victoria'),
   ('Greener Pastures Sanctuary',    'Australia',   -32.8400, 115.9200, 'https://greenerpasturessanctuary.org', 'Waroona, Western Australia'),

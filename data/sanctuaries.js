@@ -70,8 +70,21 @@ const SANCTUARIES = [
     site: "https://farmsanctuarysa.org", notes: "Franschhoek — home of Pigcasso", verified: false },
 
   // ── Asia ──
+  // Farm-animal sanctuaries are rare in East Asia; the concept is young there.
+  // The elephant/wildlife refuges below are included so families in the region
+  // have somewhere real to visit — their species are noted honestly.
   { name: "Animal Aid Unlimited", country: "India", lat: 24.5800, lng: 73.6800,
     site: "https://animalaidunlimited.org", notes: "Udaipur, Rajasthan", verified: false },
+  { name: "Open Sesame", country: "Japan", lat: 32.8000, lng: 130.7000,
+    site: "https://www.open-sesame.info", notes: "Kumamoto — horses, a pig and chickens", verified: false },
+  { name: "Moo Mow Garden", country: "Japan", lat: 37.4200, lng: 140.9900,
+    site: "https://isitveganjapan.com/animal-sanctuaries/", notes: "Fukushima — rescued cows", verified: false },
+  { name: "Elephant Nature Park", country: "Thailand", lat: 19.1900, lng: 98.8600,
+    site: "https://elephantnaturepark.org", notes: "Chiang Mai — elephants, buffalo and dogs", verified: false },
+  { name: "Wildlife Friends Foundation Thailand", country: "Thailand", lat: 12.6500, lng: 99.8500,
+    site: "https://www.wfft.org", notes: "Petchaburi — wildlife and elephant refuge", verified: false },
+  { name: "Boon Lott's Elephant Sanctuary", country: "Thailand", lat: 17.1000, lng: 99.6000,
+    site: "https://www.blesele.org", notes: "Sukhothai — elephants", verified: false },
 
   // ── Oceania ──
   { name: "Edgar's Mission", country: "Australia", lat: -37.2800, lng: 144.7300,

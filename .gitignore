@@ -2,6 +2,9 @@
 # are what the app actually loads; keep these locally as your archive.
 images/*/originals/
 
+# Build output (Netlify regenerates this on every deploy)
+dist/
+
 # macOS clutter
 .DS_Store
 

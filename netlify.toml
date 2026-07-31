@@ -1,0 +1,18 @@
+# Netlify deploy config.
+#
+# Connect this repo once (Netlify → Add new site → Import from GitHub → KindQuest)
+# and every push to `main` publishes automatically — no more manual drag & drop.
+#
+# The "build" just copies the player-facing files into dist/, so internal notes
+# (CLAUDE.md), the SQL scripts and the designer brief are never published.
+
+[build]
+  publish = "dist"
+  command = """
+    rm -rf dist && mkdir -p dist && \
+    cp index.html styles.css app.js dist/ && \
+    cp -R data images dist/ && \
+    rm -f dist/images/DESIGNER_BRIEF.md && \
+    find dist -name '.DS_Store' -delete && \
+    printf 'User-agent: *\\nDisallow: /\\n' > dist/robots.txt
+  """

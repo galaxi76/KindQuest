@@ -140,7 +140,7 @@ function resolvePlayQuestion(kind, round, animal) {
       round.consentChecked = true;
       if (wantsAffection) {
         return { pose: "yes", audio: "ask-yes",
-          line: `You ask gently, "May I pet you?" ${name} ${animal.comfortSignals}. That's how a goat says yes — she's asking for a scratch! 💛` };
+          line: `You ask gently, "May I pet you?" ${name} ${animal.comfortSignals}. That's how a goat says yes — she'd love a pet or a brush! 💛` };
       }
       // A "no" isn't always obvious. Half the time she shows the clear signal,
       // half the time only a subtle one — so children practise noticing both.

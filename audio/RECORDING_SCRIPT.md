@@ -34,7 +34,7 @@ herself. Pick one and stay consistent — the lines mix narration and her voice.
 ### Asking her things
 
 **`ask-yes.mp3`** — she'd like affection
-> You ask gently, "May I pet you?" Clover walks right up and turns her neck and side toward you, relaxed and easy. That's how a goat says yes — she's asking for a scratch!
+> You ask gently, "May I pet you?" Clover walks right up and turns her neck and side toward you, relaxed and easy. That's how a goat says yes — she'd love a pet or a brush!
 
 **`ask-no.mp3`** — clear no
 > You ask gently, "May I pet you?" Clover steps back, turns her head away, and flicks her tail. She turns away — that looks like she needs space right now.

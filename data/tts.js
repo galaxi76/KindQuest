@@ -50,7 +50,19 @@ function pickVoice() {
 // so callers can wait for her to stop talking before saying something else.
 // Returns false if nothing will be spoken (muted/unsupported) — the caller
 // should then fall back to its own timing.
-function speak(text, onEnd) {
+function speak(text, onEnd, key) {
+  if (TTS.muted || !text) return false;
+
+  // A recorded human voice beats synthesis every time — use it when we have
+  // one for this line, and fall through to TTS when we don't.
+  if (typeof playRecorded === "function" && !recordedKnownMissing(key)) {
+    const started = playRecorded(key, onEnd, () => speakSynth(text, onEnd));
+    if (started) return true;
+  }
+  return speakSynth(text, onEnd);
+}
+
+function speakSynth(text, onEnd) {
   if (!TTS.supported || TTS.muted || !text) return false;
   window.speechSynthesis.cancel(); // one line at a time — no overlapping chatter
 
@@ -84,12 +96,13 @@ function speak(text, onEnd) {
 // Immediately stop whatever is being read (e.g. when the child taps a button).
 function ttsStop() {
   if (TTS.supported) window.speechSynthesis.cancel();
+  if (typeof stopRecorded === "function") stopRecorded();
 }
 
 function ttsToggle() {
   TTS.muted = !TTS.muted;
   localStorage.setItem("sf-tts-muted", TTS.muted ? "1" : "0");
-  if (TTS.muted) window.speechSynthesis?.cancel();
+  if (TTS.muted) { window.speechSynthesis?.cancel(); stopRecorded?.(); }
   return !TTS.muted;
 }
 

@@ -59,25 +59,28 @@ function beginRound() {
 
   // She remembers you: returning friends get a warmer welcome, and trust
   // carries over — the friendship meter starts with one heart already filled.
-  let intro, pose = "neutral";
+  let intro, pose = "neutral", introAudio;
   if (mem.befriended > 0) {
     state.round.progress = 1;
     pose = "happy";
+    introAudio = "intro-friend";
     intro =
       `${a.name} trots straight over — she remembers her friend! ` +
       `Her trust in you carries on. Ask first, then choose kindly.`;
   } else if (memIsReturningVisit(a.id)) {
+    introAudio = "intro-return";
     intro =
       `${a.name} perks up — she remembers you visiting before! ` +
       `Earn her trust by reading how she feels each time — ask first, then choose kindly.`;
   } else {
+    introAudio = "intro-first";
     intro =
       `This is ${a.name}. She's ${a.personality}. ` +
       `Earn her trust by reading how she feels each time — ask first, then choose kindly.`;
   }
   setGoat($("#goat-stage"), pose);
   $("#speech").textContent = intro;
-  speak(intro);
+  speak(intro, null, introAudio);
   $("#win-panel").classList.add("hidden");
   $("#ask-panel").classList.add("hidden");
   buildPlayQuestions();
@@ -122,10 +125,10 @@ function onChoice(action) {
     $$(".choice").forEach((b) => (b.disabled = true));
     // Let her FINISH the last line before the win message interrupts her.
     // If the voice is off (or unsupported), fall back to a short pause.
-    const spoke = speak(res.line, () => winRound(res.line));
+    const spoke = speak(res.line, () => winRound(res.line), res.audio);
     if (!spoke) setTimeout(() => winRound(res.line), 900);
   } else {
-    speak(res.line);
+    speak(res.line, null, res.audio);
   }
   // 'progress' continues the round at a new beat; 'gentle' keeps the same beat.
 }
@@ -147,7 +150,7 @@ function askDuringPlay(kind) {
   const res = resolvePlayQuestion(kind, state.round, state.animal);
   setGoat($("#goat-stage"), res.pose);
   $("#speech").textContent = res.line;
-  speak(res.line);
+  speak(res.line, null, res.audio);
 }
 
 function winRound(line) {
@@ -158,7 +161,7 @@ function winRound(line) {
     ? `You and ${state.animal.name} are closer than ever. She's so happy you came back!`
     : `You read ${state.animal.name}'s feelings beautifully and earned her trust. You're friends now!`;
   $(".win-text", panel).textContent = winText;
-  speak(winText);
+  speak(winText, null, wasFriend ? "win-again" : "win-first");
   panel.classList.remove("hidden");
   panel.scrollIntoView({ behavior: "smooth", block: "center" });
 }
@@ -171,19 +174,21 @@ function adopt() {
   fxAdopt();
   setGoat($("#cert-goat"), "happy");
   $("#chat").innerHTML = "";
-  bubble("goat", `Yay! I'm so happy you adopted me. Ask me anything about myself! 💛`);
+  bubble("goat", `Yay! I'm so happy you adopted me. Ask me anything about myself! 💛`, "adopt-hello");
   buildSuggestions();
   show("adopt-screen");
   $("#ask-input").value = "";
 }
 
-function bubble(who, text) {
+function bubble(who, text, audioKey) {
   const b = document.createElement("div");
   b.className = "bubble " + who;
   b.textContent = text;
   $("#chat").appendChild(b);
   b.scrollIntoView({ behavior: "smooth", block: "end" });
-  if (who === "goat") speak(text); // Clover reads her answers aloud
+  // Clover reads her answers aloud. Q&A answers vary too much to pre-record,
+  // so these stay on text-to-speech — except her fixed adoption greeting.
+  if (who === "goat") speak(text, null, audioKey);
 }
 
 function ask(q) {

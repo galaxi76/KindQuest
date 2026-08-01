@@ -67,12 +67,14 @@ function resolveChoice(action, round, animal) {
       // child chose not to touch her. She's simply calm and at ease.
       return advance(round, {
         pose: "neutral",
+        audio: "space-good",
         line: `You gave ${name} room to breathe. She settles, and trusts you a little more. 🌿`,
       });
     }
     return {
       pose: "neutral",
       outcome: "gentle",
+      audio: "space-wrong",
       line: `That's gentle of you — but ${name} was actually hoping for a little fuss this time. Try asking how she's feeling!`,
     };
   }
@@ -87,6 +89,7 @@ function resolveChoice(action, round, animal) {
     return {
       pose: "hesitant",
       outcome: "gentle",
+      audio: "ask-first",
       line: `Wait — you haven't said hello yet! ${name} doesn't know what you want. Tap "Ask" to check with her first. 💬`,
     };
   }
@@ -95,6 +98,7 @@ function resolveChoice(action, round, animal) {
     round.hasTouched = true;
     return advance(round, {
       pose: action === "brush" ? "content" : "happy",
+      audio: action === "brush" ? "brush-good" : "pet-good",
       line:
         action === "brush"
           ? `${name} closes her eyes and leans into the soft brushing. She loves it! 💛`
@@ -107,6 +111,7 @@ function resolveChoice(action, round, animal) {
   return {
     pose: "no",
     outcome: "gentle",
+    audio: action === "brush" ? "touch-wrong-brush" : "touch-wrong-pet",
     line: `${name} steps back — she isn't ready to ${verb} right now. That's okay! Try "Ask" or "Give space."`,
   };
 }
@@ -134,21 +139,21 @@ function resolvePlayQuestion(kind, round, animal) {
     case "permission":
       round.consentChecked = true;
       if (wantsAffection) {
-        return { pose: "yes",
+        return { pose: "yes", audio: "ask-yes",
           line: `You ask gently, "May I pet you?" ${name} ${animal.comfortSignals}. She turns toward you — that looks like a yes! 💛` };
       }
       // A "no" isn't always obvious. Half the time she shows the clear signal,
       // half the time only a subtle one — so children practise noticing both.
       return Math.random() < 0.5
-        ? { pose: "no",
+        ? { pose: "no", audio: "ask-no",
             line: `You ask gently, "May I pet you?" ${name} ${animal.discomfortSignals}. She turns away — that looks like she needs space right now.` }
-        : { pose: "hesitant",
+        : { pose: "hesitant", audio: "ask-hesitant",
             line: `You ask gently, "May I pet you?" ${name} ${animal.hesitantSignals || "turns her head a little to the side and goes quiet"}. It's small, but that's still a no for now — she'd like some space.` };
     case "feeling":
       return wantsAffection
-        ? { pose: "yes",
+        ? { pose: "yes", audio: "feeling-yes",
             line: `${name} looks bright and relaxed right now. She seems open to a cuddle. 🌞` }
-        : { pose: "hesitant",
+        : { pose: "hesitant", audio: "feeling-hesitant",
             line: `${name} seems a little unsure right now — see how her head is turned away? She might want some space.` };
     case "likes":
       return { pose: "neutral",

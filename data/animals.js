@@ -73,7 +73,7 @@ const ANIMALS = {
     ],
 
     // What "yes, I'd like that" looks like for Clover.
-    comfortSignals: "leans in close, ears soft and floppy, and gives a happy little wag",
+    comfortSignals: "walks right up and turns her neck and side toward you, relaxed and easy",
     // What "no thank you, I need space" looks like for Clover.
     discomfortSignals: "steps back, turns her head away, and flicks her tail",
     // The SUBTLE version of "not right now" — the cue we want kids to learn

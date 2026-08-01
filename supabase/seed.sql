@@ -32,7 +32,7 @@ values (
     {"q":["color","look like","fur","spots"],"a":"I have soft cream-colored fur, two little horns, and a fuzzy beard. I think I'm quite handsome! ✨"},
     {"q":["secret","tell me something","special","just between us"],"close":true,"a":["Okay, but just between us friends... I hide the yummiest hay behind the climbing ramp so Bechor can't find it first. 🤫","Since you're my friend, I'll tell you: sometimes at night, Pip and I sneak to the fence to watch the stars. ✨","Promise not to tell? Once I nibbled a hole in Maya's hat, and she still doesn't know it was me! 🤭"]}
   ]$j$::jsonb,
-  $a$leans in close, ears soft and floppy, and gives a happy little wag$a$,
+  $a$walks right up and turns her neck and side toward you, relaxed and easy$a$,
   $a$steps back, turns her head away, and flicks her tail$a$,
   $a$turns her head just a little to the side and looks away$a$,
   $a$crunchy apple slices$a$,

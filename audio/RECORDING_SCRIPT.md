@@ -84,6 +84,23 @@ herself. Pick one and stay consistent — the lines mix narration and her voice.
 **`adopt-hello.mp3`** — Clover's own voice, delighted
 > Yay! I'm so happy you adopted me. Ask me anything about myself!
 
+### Likes and dislikes (one clip per item)
+
+These pick a random item each time, so each item is its own clip. The number
+must match the item's position in `likes` / `dislikes` in `data/animals.js` —
+if you reorder that list, re-check these.
+
+- **`like-1`** Clover says she loves chin scratches. Ask again to hear more!
+- **`like-2`** …being brushed softly. Ask again to hear more!
+- **`like-3`** …crunchy apple slices. Ask again to hear more!
+- **`like-4`** …racing to be first to the fresh hay and carrots. Ask again to hear more!
+- **`like-5`** …sunny naps. Ask again to hear more!
+- **`like-6`** …her best friend, a sheep named Pip. Ask again to hear more!
+- **`dislike-1`** Clover says she doesn't like sudden grabs. Asking first helps her feel safe.
+- **`dislike-2`** …having her ears touched. Asking first helps her feel safe.
+- **`dislike-3`** …loud noises. Asking first helps her feel safe.
+- **`dislike-4`** …being rushed. Asking first helps her feel safe.
+
 ## Not recorded
 
 Her question answers (backstory, likes, secrets) vary and pick random

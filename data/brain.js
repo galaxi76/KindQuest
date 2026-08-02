@@ -155,12 +155,17 @@ function resolvePlayQuestion(kind, round, animal) {
             line: `${name} looks bright and relaxed right now. She looks like she'd enjoy a pet. 🌞` }
         : { pose: "hesitant", audio: "feeling-hesitant",
             line: `${name} seems a little unsure right now — see how her head is turned away? She might want some space.` };
-    case "likes":
-      return { pose: "neutral",
-        line: `${name} says she loves ${pick(animal.likes)}. ☀️ Ask again to hear more!` };
-    case "dislikes":
-      return { pose: "neutral",
-        line: `${name} says she doesn't like ${pick(animal.dislikes)}. Asking first helps her feel safe.` };
+    // Pick by INDEX so the matching recording (like-1, like-2, …) can play.
+    case "likes": {
+      const i = Math.floor(Math.random() * animal.likes.length);
+      return { pose: "neutral", audio: `like-${i + 1}`,
+        line: `${name} says she loves ${animal.likes[i]}. ☀️ Ask again to hear more!` };
+    }
+    case "dislikes": {
+      const i = Math.floor(Math.random() * animal.dislikes.length);
+      return { pose: "neutral", audio: `dislike-${i + 1}`,
+        line: `${name} says she doesn't like ${animal.dislikes[i]}. Asking first helps her feel safe.` };
+    }
     default:
       return { pose: "neutral", line: `${name} tilts her head.` };
   }

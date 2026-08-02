@@ -12,9 +12,10 @@ const AUDIO = {
   base: "audio/clover/",
   // Tried in order. .m4a is what iPhone Voice Memos exports, so recordings can
   // be dropped in with no conversion; .mp3 and .wav work too.
-  exts: [".mp3", ".m4a", ".wav"],
-  missing: new Set(), // keys with no recording at all — don't retry this session
-  current: null,      // the clip playing right now
+  exts: [".m4a", ".mp3", ".wav"],
+  missing: new Set(),   // keys with no recording at all — don't retry this session
+  resolved: new Map(),  // key -> the URL we confirmed exists
+  current: null,        // the clip playing right now
 };
 
 // Try to play a recorded line.
@@ -26,28 +27,42 @@ function playRecorded(key, onEnd, onFail) {
 
   stopRecorded();
   const v = typeof ASSET_V !== "undefined" ? ASSET_V : "";
-  let settled = false;
 
-  // Walk the extension list until one loads; if none do, there's no recording.
-  const tryExt = (i) => {
-    if (i >= AUDIO.exts.length) {
-      settled = true;
-      AUDIO.missing.add(key); // don't try this key again this session
+  // Find which file exists BEFORE playing anything. Probing by attempting
+  // playback let a failing element keep running alongside the good one — two
+  // overlapping streams, which sounds like an echo chamber.
+  const resolveUrl = async () => {
+    if (AUDIO.resolved.has(key)) return AUDIO.resolved.get(key);
+    for (const ext of AUDIO.exts) {
+      const url = `${AUDIO.base}${key}${ext}?v=${v}`;
+      try {
+        const res = await fetch(url, { method: "HEAD" });
+        if (res.ok) { AUDIO.resolved.set(key, url); return url; }
+      } catch { /* keep trying the next extension */ }
+    }
+    return null;
+  };
+
+  resolveUrl().then((url) => {
+    if (!url) {
+      AUDIO.missing.add(key); // no recording for this line — use TTS
       AUDIO.current = null;
       onFail && onFail();
       return;
     }
-    const el = new Audio(`${AUDIO.base}${key}${AUDIO.exts[i]}?v=${v}`);
+    stopRecorded(); // in case something started while we were checking
+    const el = new Audio(url);
     AUDIO.current = el;
-    el.addEventListener("ended", () => {
-      if (!settled) { settled = true; onEnd && onEnd(); }
-    });
-    el.addEventListener("error", () => { if (!settled) tryExt(i + 1); });
+    let settled = false;
+    const finish = () => { if (!settled) { settled = true; onEnd && onEnd(); } };
+    el.addEventListener("ended", finish);
+    el.addEventListener("error", () => { if (!settled) { settled = true; onFail && onFail(); } });
     const attempt = el.play();
-    if (attempt && attempt.catch) attempt.catch(() => { if (!settled) tryExt(i + 1); });
-  };
+    if (attempt && attempt.catch) {
+      attempt.catch(() => { if (!settled) { settled = true; onFail && onFail(); } });
+    }
+  });
 
-  tryExt(0);
   return true;
 }
 

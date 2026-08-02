@@ -60,7 +60,7 @@ herself. Pick one and stay consistent — the lines mix narration and her voice.
 > Clover closes her eyes and leans into the soft brushing. She loves it!
 
 **`touch-wrong-pet.mp3`** — gentle, never disappointed
-> Clover steps back — she isn't ready to be petted right now. That's okay! Try "Ask" or "Give space."
+> Clover steps back — she isn't ready to be pet right now. That's okay! Try "Ask" or "Give space."
 
 **`touch-wrong-brush.mp3`**
 > Clover steps back — she isn't ready to be brushed right now. That's okay! Try "Ask" or "Give space."
@@ -71,7 +71,7 @@ herself. Pick one and stay consistent — the lines mix narration and her voice.
 > You gave Clover room to breathe. She settles, and trusts you a little more.
 
 **`space-wrong.mp3`**
-> That's gentle of you — but Clover was actually hoping to be petted this time. Try asking how she's feeling!
+> That's gentle of you — but Clover was actually hoping to be pet this time. Try asking how she's feeling!
 
 ### Winning and adopting
 

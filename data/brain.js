@@ -75,12 +75,12 @@ function resolveChoice(action, round, animal) {
       pose: "neutral",
       outcome: "gentle",
       audio: "space-wrong",
-      line: `That's gentle of you — but ${name} was actually hoping to be petted this time. Try asking how she's feeling!`,
+      line: `That's gentle of you — but ${name} was actually hoping to be pet this time. Try asking how she's feeling!`,
     };
   }
 
   // Pet or brush — welcome when she wants affection, too much when she wants space.
-  const verb = action === "brush" ? "be brushed" : "be petted";
+  const verb = action === "brush" ? "be brushed" : "be pet";
 
   // ALWAYS ask before the first touch. Reaching for an animal you haven't
   // greeted is the exact habit this app exists to unteach — so the very first
@@ -218,7 +218,7 @@ function answerQuestion(qRaw, animal, opts = {}) {
     return `I'm ${animal.age}. Still young and bouncy! 🐐`;
   }
   if (has("pet", "touch", "brush", "can i", "may i", "consent", "okay to")) {
-    return `It depends on my mood! When I'd like to be petted I'll ${animal.comfortSignals}. When I need space I'll ${animal.discomfortSignals}. Always ask first. 😊`;
+    return `It depends on my mood! When I'd like to be pet I'll ${animal.comfortSignals}. When I need space I'll ${animal.discomfortSignals}. Always ask first. 😊`;
   }
   if (has("personality", "kind of", "type of", "shy")) {
     return `I'm ${animal.personality}. 🌼`;

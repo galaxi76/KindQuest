@@ -60,7 +60,7 @@ function resolveChoice(action, round, animal) {
 
   const wantsAffection = round.desire === "affection";
 
-  // Give space — correct when she wants space, a missed read when she wanted a cuddle.
+  // Give space — correct when she wants space, a missed read when she wanted affection.
   if (action === "leave") {
     if (!wantsAffection) {
       // NOT the "content" pose — that one shows her being brushed, and the
@@ -75,7 +75,7 @@ function resolveChoice(action, round, animal) {
       pose: "neutral",
       outcome: "gentle",
       audio: "space-wrong",
-      line: `That's gentle of you — but ${name} was actually hoping for a little fuss this time. Try asking how she's feeling!`,
+      line: `That's gentle of you — but ${name} was actually hoping to be petted this time. Try asking how she's feeling!`,
     };
   }
 
@@ -152,7 +152,7 @@ function resolvePlayQuestion(kind, round, animal) {
     case "feeling":
       return wantsAffection
         ? { pose: "yes", audio: "feeling-yes",
-            line: `${name} looks bright and relaxed right now. She seems open to a cuddle. 🌞` }
+            line: `${name} looks bright and relaxed right now. She looks like she'd enjoy a pet. 🌞` }
         : { pose: "hesitant", audio: "feeling-hesitant",
             line: `${name} seems a little unsure right now — see how her head is turned away? She might want some space.` };
     case "likes":
@@ -218,7 +218,7 @@ function answerQuestion(qRaw, animal, opts = {}) {
     return `I'm ${animal.age}. Still young and bouncy! 🐐`;
   }
   if (has("pet", "touch", "brush", "can i", "may i", "consent", "okay to")) {
-    return `It depends on my mood! When I want a fuss I'll ${animal.comfortSignals}. When I need space I'll ${animal.discomfortSignals}. Always ask first. 😊`;
+    return `It depends on my mood! When I'd like to be petted I'll ${animal.comfortSignals}. When I need space I'll ${animal.discomfortSignals}. Always ask first. 😊`;
   }
   if (has("personality", "kind of", "type of", "shy")) {
     return `I'm ${animal.personality}. 🌼`;

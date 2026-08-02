@@ -43,7 +43,7 @@ herself. Pick one and stay consistent — the lines mix narration and her voice.
 > You ask gently, "May I pet you?" Clover turns her head just a little to the side and looks away. It's small, but that's still a no for now — she'd like some space.
 
 **`feeling-yes.mp3`**
-> Clover looks bright and relaxed right now. She seems open to a cuddle.
+> Clover looks bright and relaxed right now. She looks like she'd enjoy a pet.
 
 **`feeling-hesitant.mp3`**
 > Clover seems a little unsure right now — see how her head is turned away? She might want some space.
@@ -71,7 +71,7 @@ herself. Pick one and stay consistent — the lines mix narration and her voice.
 > You gave Clover room to breathe. She settles, and trusts you a little more.
 
 **`space-wrong.mp3`**
-> That's gentle of you — but Clover was actually hoping for a little fuss this time. Try asking how she's feeling!
+> That's gentle of you — but Clover was actually hoping to be petted this time. Try asking how she's feeling!
 
 ### Winning and adopting
 

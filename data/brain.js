@@ -80,7 +80,7 @@ function resolveChoice(action, round, animal) {
   }
 
   // Pet or brush — welcome when she wants affection, too much when she wants space.
-  const verb = action === "brush" ? "brush" : "pet";
+  const verb = action === "brush" ? "be brushed" : "be petted";
 
   // ALWAYS ask before the first touch. Reaching for an animal you haven't
   // greeted is the exact habit this app exists to unteach — so the very first

@@ -11,8 +11,8 @@
   command = """
     rm -rf dist && mkdir -p dist && \
     cp index.html styles.css app.js dist/ && \
-    cp -R data images dist/ && \
-    rm -f dist/images/DESIGNER_BRIEF.md && \
+    cp -R data images audio dist/ && \
+    rm -f dist/images/DESIGNER_BRIEF.md dist/audio/RECORDING_SCRIPT.md && \
     find dist -name '.DS_Store' -delete && \
     printf 'User-agent: *\\nDisallow: /\\n' > dist/robots.txt
   """
